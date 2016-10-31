@@ -9,10 +9,6 @@ from netmiko import ConnectHandler
 from datetime import datetime
 import csv, os.path
 
-#Declare global variables, out of poor programming and laziness
-#username = ''
-#password = ''
-#secret = ''
 customer = raw_input('Customer name: ') + ".csv"
 start_time = datetime.now()
 
