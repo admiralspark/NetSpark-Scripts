@@ -27,9 +27,9 @@ with open(customer, mode='r') as csvfile:
     macAddr = raw_input('MAC of the device in cisco format: \n')
     command_string = 'show mac add | inc ' + str(macAddr)
     for row in reader:
-        hostname = row['hostname']
+        hostname = row['SysName']
         device_type = row['device_type']
-        ip = row['ip']
+        ip = row['IP_Address']
         switch = {
         'device_type': device_type,
         'ip': ip,
@@ -40,7 +40,7 @@ with open(customer, mode='r') as csvfile:
         }
         net_connect = ConnectHandler(**switch)
         output = net_connect.send_command(command_string)
-        print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['hostname'])
+        print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
         print output
         print ">>>>>>>>> End <<<<<<<<<"
         net_connect.disconnect()

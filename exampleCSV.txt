@@ -1,7 +1,7 @@
 For your 'company.csv' you'll want something with this format:
 
-hostname,ip,device_type,authentication
-HOST-SW-1,10.0.0.1,cisco_ios,LOCAL
+IP_Address,SysName,device_type,authentication
+10.0.0.1,HOST-SW-1,cisco_ios,LOCAL
 
 For your credentials.csv you'll want something like this:
 
