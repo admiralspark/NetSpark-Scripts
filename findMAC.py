@@ -47,13 +47,6 @@ def findmac(username, password, secret):
                 print "No CDP results for this MAC"
             else:
                 print cdpreturn
-                cdpList = ' '.join(macreturn.split())
-                port = cdpList.split(' ')[3]
-                command_string_port = 'show run int ' + str(port)
-                portreturn = net_connect.send_command(command_string_port)
-                print "\nPort Configuration for matched CDP or MAC: "
-                # BROKENNNNN
-                #print portreturn
             print "\n>>>>>>>>> End <<<<<<<<<"
 
             net_connect.disconnect()
