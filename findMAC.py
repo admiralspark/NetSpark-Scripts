@@ -25,12 +25,12 @@ def findmac(username, password, secret):
             device_type = row['device_type']
             ip = row['IP_Address']
             switch = {
-            'device_type': device_type,
-            'ip': ip,
-            'username': username,
-            'password': password,
-            'secret': secret,
-            'verbose': False,
+                'device_type': device_type,
+                'ip': ip,
+                'username': username,
+                'password': password,
+                'secret': secret,
+                'verbose': False,
             }
             net_connect = ConnectHandler(**switch)
             macreturn = net_connect.send_command(command_string_mac)
@@ -39,7 +39,10 @@ def findmac(username, password, secret):
             print "\nMAC Address Hits on this switch: "
             print macreturn
             print "\nCisco Discovery Protocol Hits on this switch: "
-            print cdpreturn
+            if cdpreturn == "":
+                print "No CDP results for this MAC"
+            else:
+                print cdpreturn
             print "\n>>>>>>>>> End <<<<<<<<<"
             net_connect.disconnect()
 
