@@ -18,8 +18,10 @@ def findmac(username, password, secret):
     with open(customer, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
         macAddr = raw_input('MAC of the device in cisco format: ')
+
         command_string_mac = 'show mac add | inc ' + str(macAddr)
         command_string_cdp = 'show cdp neigh | inc ' + str(macAddr)
+
         for row in reader:
             hostname = row['SysName']
             device_type = row['device_type']
@@ -32,9 +34,11 @@ def findmac(username, password, secret):
                 'secret': secret,
                 'verbose': False,
             }
+
             net_connect = ConnectHandler(**switch)
             macreturn = net_connect.send_command(command_string_mac)
             cdpreturn = net_connect.send_command(command_string_cdp)
+
             print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
             print "\nMAC Address Hits on this switch: "
             print macreturn
@@ -44,6 +48,7 @@ def findmac(username, password, secret):
             else:
                 print cdpreturn
             print "\n>>>>>>>>> End <<<<<<<<<"
+
             net_connect.disconnect()
 
 # Grab the Customer name to search
