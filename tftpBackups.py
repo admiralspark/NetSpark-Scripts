@@ -1,3 +1,10 @@
+'''
+This script will verify TFTP backups on switches and remediate if
+it's not working properly.
+'''
+
+
+
 #Global imports
 from netmiko import ConnectHandler
 from datetime import datetime
