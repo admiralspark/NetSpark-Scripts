@@ -11,7 +11,19 @@ Any network administrator who's sick of manually touching things! These are cert
 ##### findMAC.py
 This script asks for a MAC address (Cisco notation, formatting to come) and a customer (which is the name of the CSV with switch information for now, DB support soon), grabs your credentials (from a local credentials.csv right now), grabs the switch info, searches every switch for a hit in the MAC address tables for that MAC, spits out matches and matching CDP data, and if there's a CDP match, the port configuration.
 
-Use Case: Finding a VOIP phone among hundreds of ports and dozens of switches, or mapping out the location of wireless AP's at the edge. 
+Use Case: Finding a VOIP phone among hundreds of ports and dozens of switches, or mapping out the location of wireless AP's at the edge.
+
+**INPUTS:**
++ *customer* variable (csv file with switch data)
++ *macAddr* variable (MAC address of device to be searched for)
+
+##### tftpBackups.py
+This script configured a nightly backup of the configuration on the switch. It uses TFTP to support the widest variety of devices but could easily be changed to support whatever you want to use.
+
+**INPUTS:**
++ *customer* variable (csv file with switch data)
++ IP of TFTP server
+
 
 ## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
