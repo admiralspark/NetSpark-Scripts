@@ -36,7 +36,10 @@ def backups(username, password, secret, customer, tftp_ip):
             # Insert enables et al here
             net_connect.enable()
 
+            # Temporary variable, need raw input later
+            change_number = "1"
             # Then command strings
+            net_connect.send_command('send log "Starting change ticket {}"'.format(change_number))
             iphost = net_connect.send_command("sh run | inc ip host tftp")
             archive = net_connect.send_command("sh run | inc archive")
             kronpolicy = net_connect.send_command("sh run | inc kron policy-list BACKUP-CONFIG")
@@ -77,7 +80,7 @@ def backups(username, password, secret, customer, tftp_ip):
                 print "Kron Occurrence DAILY-CONFIG-BACKUP already configured."
             net_connect.send_command_expect('write memory')
             print "Memory Saved."
-
+            net_connect.send_command('send log "Completing change ticket {}"'.format(change_number))
             print "\n>>>>>>>>> End <<<<<<<<<"
             # Disconnect from this session
             net_connect.disconnect()
