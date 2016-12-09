@@ -14,7 +14,10 @@ import credentials
 
 start_time = datetime.now()
 
-def nc(username, password, secret, customer, command_string):
+# Special Variable for now
+tftp_ip = "10.69.1.15"
+
+def backups(username, password, secret, customer):
     with open(customer, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
 
@@ -32,12 +35,50 @@ def nc(username, password, secret, customer, command_string):
             }
 
             net_connect = ConnectHandler(**switch)
+
             # Insert enables et al here
-            # net_connect.enable()
-            command_string = "write mem"
-            connect_return = net_connect.send_command(command_string)
+            net_connect.enable()
+
+            # Then command strings
+            iphost = net_connect.send_command("sh run | inc ip host tftp")
+            archive = net_connect.send_command("sh run | inc archive")
+            kronpolicy = net_connect.send_command("sh run | inc kron policy-list BACKUP-CONFIG")
+            kronoccur = net_connect.send_command("sh run | inc kron occurrence DAILY-CONFIG-BACKUP")
+
             print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
-            print connect_return
+            if iphost == "":
+                net_connect.send_command("ip host tftp " + str(tftp_ip))
+                print "Set TFTP IP to " + str(tftp_ip)
+            else:
+                print "TFTP IP is already set to \n" + str(iphost)
+            if archive == "":
+                config_archive = [  'archive',
+                                    'path tftp://tftp/$h/$h',
+                                    'write-memory',
+                                    'exit' ]
+                net_connect.send_config_set(config_archive)
+                print "Archive configured."
+            else:
+                print "Archive already configured."
+            if kronpolicy == "":
+                config_kronp = [    'kron policy-list BACKUP-CONFIG',
+                                    'cli write memory',
+                                    'exit'  ]
+                net_connect.send_config_set(config_kronp)
+                print "Kron Policy BACKUP-CONFIG configured."
+            else:
+                print "Kron Policy BACKUP-CONFIG already configured."
+            if kronoccur == "":
+                config_krono = [    'kron occurrence DAILY-CONFIG-BACKUP at 0:05 recurring',
+                                    'policy-list BACKUP-CONFIG',
+                                    'exit']
+                net_connect.send_config_set(config_krono)
+                print "Kron Occurrence DAILY-CONFIG-BACKUP now set."
+            else:
+                print "Kron Occurrence DAILY-CONFIG-BACKUP already set."
+            net_connect.send_command_expect('write memory')
+            print "Memory Saved."
+
             print "\n>>>>>>>>> End <<<<<<<<<"
             # Disconnect from this session
             net_connect.disconnect()
@@ -47,7 +88,7 @@ customer = raw_input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Run the primary function in this program
-nc(username, password, secret)
+backups(username, password, secret, customer)
 
 end_time = datetime.now()
 # How long did it run?
