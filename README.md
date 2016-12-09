@@ -31,7 +31,7 @@ This script configured a nightly backup of the configuration on the switch. It u
 + create config templates that compare device configs to the standard and automate the updates of those devices
 + One click provisioning of new devices into all of our various other tools. No more forgetting to update the device in the monitoring server
 + Updates device information in other monitoring tools if the device changes
-+ Collects backups of all network devices
++ ~~Collects backups of all network devices~~ Completed with automated backup scheduling tool tftpBackups.py 12/8/16
 + Connects vlans -> subnets, subnets -> vrfs, MAC addresses -> switchports, IP addresses, VLANs
 + Gather historical CDP info
 + Allows a user to put in two hosts and it will trace the path that the packets take and provide, VRF information, firewall information, and physical ports taken
