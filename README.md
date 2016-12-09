@@ -9,9 +9,9 @@ Any network administrator who's sick of manually touching things! These are cert
 ## What are the scripts/what do they do?
 
 ##### findMAC.py
-This script uses the output of "show mac add | inc XXX" where XXX is a manually input mac address. The intent is this: if you have an environment with a dozen switches and you need to find out what port a phone/printer/whatever is plugged into and don't want to check each one by hand, this will pop into each one and spit out what it finds.
+This script asks for a MAC address (Cisco notation, formatting to come) and a customer (which is the name of the CSV with switch information for now, DB support soon), grabs your credentials (from a local credentials.csv right now), grabs the switch info, searches every switch for a hit in the MAC address tables for that MAC, spits out matches and matching CDP data, and if there's a CDP match, the port configuration.
 
-Now (12/7/16) it will even intelligently tell you which ports are access, which are trunk, and which one is likely the correct port based on collected information.
+Use Case: Finding a VOIP phone among hundreds of ports and dozens of switches, or mapping out the location of wireless AP's at the edge. 
 
 ## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
