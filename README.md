@@ -13,7 +13,7 @@ This script uses the output of "show mac add | inc XXX" where XXX is a manually 
 
 Now (12/7/16) it will even intelligently tell you which ports are access, which are trunk, and which one is likely the correct port based on collected information.
 
-##### Future Automation Projects
+## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
 + push out config changes to all or select devices as a one time change (rancid-like)
 + create config templates that compare device configs to the standard and automate the updates of those devices
