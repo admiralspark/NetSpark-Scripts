@@ -45,19 +45,21 @@ def backups(username, password, secret, customer):
             kronpolicy = net_connect.send_command("sh run | inc kron policy-list BACKUP-CONFIG")
             kronoccur = net_connect.send_command("sh run | inc kron occurrence DAILY-CONFIG-BACKUP")
 
-            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
+            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<\n".format(row['SysName'])
             if iphost == "":
-                net_connect.send_command("ip host tftp " + str(tftp_ip))
-                print "Set TFTP IP to " + str(tftp_ip)
+                net_connect.config_mode()
+                ipcommand = "ip host tftp " + str(tftp_ip)
+                net_connect.send_command_expect(ipcommand)
+                print "Configured TFTP IP to " + str(tftp_ip)
             else:
-                print "TFTP IP is already set to \n" + str(iphost)
+                print "TFTP IP is already configured to " + str(iphost)
             if archive == "":
                 config_archive = [  'archive',
                                     'path tftp://tftp/$h/$h',
                                     'write-memory',
                                     'exit' ]
                 net_connect.send_config_set(config_archive)
-                print "Archive configured."
+                print "Archive now configured."
             else:
                 print "Archive already configured."
             if kronpolicy == "":
@@ -65,7 +67,7 @@ def backups(username, password, secret, customer):
                                     'cli write memory',
                                     'exit'  ]
                 net_connect.send_config_set(config_kronp)
-                print "Kron Policy BACKUP-CONFIG configured."
+                print "Kron Policy BACKUP-CONFIG now configured."
             else:
                 print "Kron Policy BACKUP-CONFIG already configured."
             if kronoccur == "":
@@ -73,9 +75,9 @@ def backups(username, password, secret, customer):
                                     'policy-list BACKUP-CONFIG',
                                     'exit']
                 net_connect.send_config_set(config_krono)
-                print "Kron Occurrence DAILY-CONFIG-BACKUP now set."
+                print "Kron Occurrence DAILY-CONFIG-BACKUP now configured."
             else:
-                print "Kron Occurrence DAILY-CONFIG-BACKUP already set."
+                print "Kron Occurrence DAILY-CONFIG-BACKUP already configured."
             net_connect.send_command_expect('write memory')
             print "Memory Saved."
 
