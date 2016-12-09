@@ -14,10 +14,7 @@ import credentials
 
 start_time = datetime.now()
 
-# Special Variable for now
-tftp_ip = "10.69.1.15"
-
-def backups(username, password, secret, customer):
+def backups(username, password, secret, customer, tftp_ip):
     with open(customer, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
 
@@ -87,10 +84,13 @@ def backups(username, password, secret, customer):
 
 # Grab the Customer name to search
 customer = raw_input('Customer name: ') + ".csv"
+# Grab the IP of the TFTP server to be sets
+tftp_ip = raw_input('TFTP server IP: ')
+# tftp_ip = "10.69.1.15"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Run the primary function in this program
-backups(username, password, secret, customer)
+backups(username, password, secret, customer, tftp_ip)
 
 end_time = datetime.now()
 # How long did it run?
