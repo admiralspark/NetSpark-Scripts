@@ -5,12 +5,14 @@ import csv, os.path
 #Local imports
 import credentials
 
+# Begin timing the script
 start_time = datetime.now()
 
+# Define the primary function (to be moved to a separate module some day...)
 def nc(username, password, secret, customer, command_string):
     with open(customer, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
-
+        # Now iterate through every row in the CSVfile and make dictionaries
         for row in reader:
             hostname = row['SysName']
             device_type = row['device_type']
@@ -23,12 +25,16 @@ def nc(username, password, secret, customer, command_string):
                 'secret': secret,
                 'verbose': False,
             }
-
+            # This is your connection handler for commands from here on out
             net_connect = ConnectHandler(**switch)
-            # Insert enables et al here
+            # Insert your commands here
             # net_connect.enable()
-            command_string = "write mem"
+            # or maybe send configuration stuff with
+            # net_connect.send_config_set(username cisco priv 15 pass cisco)
+            # Example for running write mem:
+            command_string = "write mem" # can be passed to nc above...
             connect_return = net_connect.send_command(command_string)
+            # Now make it pretty
             print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
             print connect_return
             print "\n>>>>>>>>> End <<<<<<<<<"
