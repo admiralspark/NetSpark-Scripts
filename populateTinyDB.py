@@ -45,10 +45,12 @@ def pop():
             'customer_name': row[3],
         }
         dbf = Query()
-        if db.search(dbf.ip == row[0]) != "[]":
+        resultf = db.search(dbf.ip == row[0])
+        if str(resultf) != "[]":
             print "Skipping " + row[0] + " as it already exists."
         else:
             db.insert(switch)
+            print "Added " + row[0]
 
 pop()
 
