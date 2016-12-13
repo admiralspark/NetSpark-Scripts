@@ -6,10 +6,13 @@ to using TinyDB: getting the data IN the database.
 -------------------------------------------------------------------------------
 
 """
+# External
 from tinydb import TinyDB, Query
 from datetime import datetime
 import csv, os.path
 import codecs
+# Local
+import convencoding
 
 # Begin timing the script
 start_time = datetime.now()
@@ -20,11 +23,13 @@ db = TinyDB('netspark.json')
 # Point it at the CSV file
 filename = raw_input("Name of the CSV file to import: ")
 # filename = "exportCP.csv"
+if filename == "exportCP.csv":
+    filename = convencoding.conv(filename)
 
 # Function pop() will parse the SW config file and add it to our TinyDB
 def pop():
     # Use codecs to parse utf-16...thanks Solarwinds for sucking so hard
-    reader = csv.reader(codecs.open(filename, 'rU', 'utf-16'))
+    reader = csv.reader(codecs.open(filename, 'rU'))
     # Skip the headers
     next(reader, None)
     # Define variable to "" for if statement, otherwise it is unbound
@@ -40,7 +45,7 @@ def pop():
             'customer_name': row[3],
         }
         dbf = Query()
-        if db.search(dbf.ip == row[0]) != "":
+        if db.search(dbf.ip == row[0]) != "[]":
             print "Skipping " + row[0] + " as it already exists."
         else:
             db.insert(switch)
