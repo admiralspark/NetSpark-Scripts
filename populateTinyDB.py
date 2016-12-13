@@ -18,8 +18,8 @@ start_time = datetime.now()
 db = TinyDB('netspark.json')
 
 # Point it at the CSV file
-# filename = raw_input("Name of the CSV file to import: ")
-filename = "exportCP.csv"
+filename = raw_input("Name of the CSV file to import: ")
+# filename = "exportCP.csv"
 
 # Function pop() will parse the SW config file and add it to our TinyDB
 def pop():
