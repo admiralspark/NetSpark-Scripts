@@ -6,6 +6,10 @@ This repo will hold the cleaned scripts I've made for simplifying repetitive tas
 ## What is the target audience?
 Any network administrator who's sick of manually touching things! These are certainly not meant as a replacement for configuration management, NCM, or other products of the like. This is for stuff where we'll be parsing output, making intelligent programmed changes, etc.
 
+## What are the requirements?
+* Netmiko
+* TinyDB (For DB support)
+
 ## What are the scripts/what do they do?
 
 #### findMAC.py
