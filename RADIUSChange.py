@@ -34,7 +34,7 @@ def nc(username, password, secret, customer, radiuskey, radiusserver, radiusgrou
             oldradiusserver = net_connect.send_command('sh run | inc radius-server')
             oldaaaauth = net_connect.send_command('sh run | inc aaa authentication')
             oldVTYauth = net_connect.send_command('sh run | inc line vty|login authentication')
-            oldgroup = net_connect.send_command('sh run | inc aaa group server radius')
+            oldgroup = net_connect.send_command('sh run | inc aaa group server radius ' + radiusgroupname)
 
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
