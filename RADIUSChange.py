@@ -47,7 +47,7 @@ def nc(username, password, secret, customer, radiuskey, radiusserver, radiusgrou
             print oldVTYauth
             if oldgroup != "":
                 print oldgroup
-            print "---------- Modified Configuration ------------"
+            print "---------- Modified Configuration ------------\n"
             if aaanewmodel == "":
                 net_connect.send_config_set('aaa new-model')
                 print "New AAA model enabled on device"
