@@ -31,8 +31,6 @@ def nc(username, password, secret, customer, command_string):
             # net_connect.enable()
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
-            # Example for running write mem:
-            command_string = "write mem" # can be passed to nc above...
             connect_return = net_connect.send_command(command_string)
             # Now make it pretty
             print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
@@ -45,8 +43,11 @@ def nc(username, password, secret, customer, command_string):
 customer = raw_input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
+# Give it a command:
+# command_string = "write mem" # can be passed to nc...
 # Run the primary function in this program
-nc(username, password, secret)
+nc(username, password, secret, customer, command_string)
+
 
 end_time = datetime.now()
 # How long did it run?
