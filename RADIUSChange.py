@@ -48,7 +48,7 @@ def nc(username, password, secret, customer, radiuskey, radiusserver, radiusgrou
             if oldgroup != "":
                 print oldgroup
             print "---------- Modified Configuration ------------\n"
-            if aaanewmodel == "":
+            if aaanewmodel == "" or aaanewmodel == "no aaa new-model":
                 net_connect.send_config_set('aaa new-model')
                 print "New AAA model enabled on device"
             if oldgroup == "":
