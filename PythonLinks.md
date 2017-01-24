@@ -17,6 +17,12 @@
 
 [Ops School](http://www.opsschool.org/en/latest/introduction.html)
 
+[Jinja2](http://jinja.pocoo.org/docs/dev/)
+
+[Flowgraph](https://github.com/pierky/flowgraph)
+
+[Level Up](https://www.reddit.com/r/learnpython/comments/5pqd31/how_to_level_up_from_scriptsprojects_to_software/)
+
 ### Links for Future Features
 [Cisco ASA Site-to-Site VPN Debugs](http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/115935-asa-ikev2-debugs.html)
 
