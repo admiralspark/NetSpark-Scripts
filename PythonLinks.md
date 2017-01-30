@@ -25,6 +25,12 @@
 
 [DocOpt](https://github.com/docopt/docopt)
 
+[Numpy Cheatsheet](https://www.datacamp.com/community/blog/python-numpy-cheat-sheet#gs.SABlgNU)
+
+[Pandas Cheatsheet](https://github.com/pandas-dev/pandas/blob/master/doc/cheatsheet/Pandas_Cheat_Sheet.pdf)
+
+[Scikit-Learn Cheatsheet](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf)
+
 ### Links for Future Features
 [Cisco ASA Site-to-Site VPN Debugs](http://www.cisco.com/c/en/us/support/docs/security/asa-5500-x-series-next-generation-firewalls/115935-asa-ikev2-debugs.html)
 
