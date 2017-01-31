@@ -1,13 +1,5 @@
 # NetSpark-Scripts
 
-## NOTICE!!!
-This repo is being cleaned up right now as I sync upstream and run through changes.
-
-This repository will contain the scripts I work on at work, and are built against
-my upstream repository. They require functions outside of each script and will
-eventually just be wrapped up as a library dependency. For now, just don't touch
-this and let me clean it up :)
-
 ## What is the purpose?
 This repo will hold the cleaned scripts I've made for simplifying repetitive tasks. I'll be making use of Kirk Byers' Netmiko project to hopefully cut down on the work needed to mass-run commands.
 
