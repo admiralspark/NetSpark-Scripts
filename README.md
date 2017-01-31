@@ -17,6 +17,7 @@ Any network administrator who's sick of manually touching things! These are cert
 ## What are the requirements?
 * Netmiko
 * TinyDB (For DB support)
+* pyperclip (for formatCW.py script)
 
 ## What are the scripts/what do they do?
 
@@ -36,6 +37,16 @@ This script configured a nightly backup of the configuration on the switch. It u
 + *customer* variable (csv file with switch data)
 + IP of TFTP server
 
+#### More to come:
++ convencoding.py
++ convertCustomer.py
++ credentials.py
++ dbquery.py
++ ephoneChange.py
++ formatCW.py
++ localusers.py (not complete, shouldn't be here)
++ populateTinyDB.py (WIP, very simple right now)
++ RADIUSChange.py
 
 ## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
@@ -45,7 +56,7 @@ This script configured a nightly backup of the configuration on the switch. It u
 + Updates device information in other monitoring tools if the device changes
 + ~~Collects backups of all network devices~~ Completed with automated backup scheduling tool tftpBackups.py 12/8/16
 + Connects vlans -> subnets, subnets -> vrfs, MAC addresses -> switchports, IP addresses, VLANs
-+ Gather historical CDP info
++ Gather historical CDP info (requires TinyDB)
 + Allows a user to put in two hosts and it will trace the path that the packets take and provide, VRF information, firewall information, and physical ports taken
 + Periodic change of your local passwords; have a script use the API of your enterprise password management suite to login with the current local password, request a new one, change it, and save the config.
 + Automatic interface descriptions. Get the MAC address from the port, query the layer 3 termination for the IP address of the endpoint, and label the interface with the hostname of the device from rDNS or from a powershell query or something.
