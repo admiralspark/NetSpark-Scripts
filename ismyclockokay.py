@@ -35,13 +35,13 @@ def nc(username, password, secret, customer):
             # Now make it pretty
             print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
             #collapsedString = ' '.join(connect_return.split())
-            PID, VID, SN = connect_return.split(",")
-            print PID
-            print VID
+            #PID, VID = collapsedString.split(",")
+            #print PID
+            #print VID
+            print connect_return
             badlist = ['V01', 'V02', 'V03']
-            if PID == "ASA": # TESTING ONLY
-            #if "ASAv" not in PID:
-                if any(word in VID for word in badlist):
+            if "ASA" in connect_return:
+                if any(word in connect_return for word in badlist):
                     print "\nThis device is VULNERABLE!"
                 else:
                     print "\nThis device is SAFE!"
