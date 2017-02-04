@@ -1,8 +1,10 @@
 '''
+-------------------------------------------------------------------------------
 This Script will log in to multiple devices, search their
 MAC address tables, and spit out the ports those MAC's are
 found on with the switch name. The idea is that it will
 assist in finding the correct port for phones and other things.
+-------------------------------------------------------------------------------
 '''
 
 #Global imports
