@@ -21,38 +21,34 @@ start_time = datetime.now()
 db = TinyDB('netspark.json')
 
 # Point it at the CSV file
-filename = raw_input("Name of the CSV file to import: ")
-# filename = "exportCP.csv"
-if filename == "exportCP.csv":
-    filename = convencoding.conv(filename)
+#filename = raw_input("Name of the CSV file to import: ")
+filename = "ASA.csv"
+# Function populate() will parse the SW config file and add it to our TinyDB
+def populate():
+    with open(filename, mode='r') as f:
+        reader = csv.DictReader(f)
+    # Now iterate through every row in the CSVfile and set variables
+        for row in reader:
+            ip = row['IP_Address']
+            hostname = row['SysName']
+            device_type = row['device_type']
+            department = row['Department']
+            switch = {
+                'ip': row['IP_Address'],
+                'hostname': row['SysName'],
+                'device_type': row['device_type'],
+                'department': row['Department']
+            }
 
-# Function pop() will parse the SW config file and add it to our TinyDB
-def pop():
-    # Use codecs to parse utf-16...thanks Solarwinds for sucking so hard
-    reader = csv.reader(codecs.open(filename, 'rU'))
-    # Skip the headers
-    next(reader, None)
-    # Define variable to "" for if statement, otherwise it is unbound
-    devicetype = ""
-    # Now iterate through every row in the CSVfile and make dictionaries
-    for row in reader:
-        if row[2] == 'Cisco':
-            devicetype = "cisco_ios"
-        switch = {
-            'hostname': row[1],
-            'ip': row[0],
-            'device_type': devicetype,
-            'customer_name': row[3],
-        }
-        dbf = Query()
-        resultf = db.search(dbf.ip == row[0])
-        if str(resultf) != "[]":
-            print "Skipping " + row[0] + " as it already exists."
-        else:
-            db.insert(switch)
-            print "Added " + row[0]
+            dbf = Query()
+            resultf = db.search(dbf.ip == row['IP_Address'])
+            if str(resultf) != "[]":
+                print "Skipping " + row['IP_Address'] + " as it already exists."
+            else:
+                db.insert(switch)
+                print "Added " + row['IP_Address']
 
-pop()
+populate()
 
 # Kill the clock!
 end_time = datetime.now()

@@ -1,3 +1,10 @@
+'''
+-------------------------------------------------------------------------------
+This script is an example of making changes on a CUCME/CUBE box, which is
+just a router with special options enabled.
+-------------------------------------------------------------------------------
+'''
+
 #Global imports
 from netmiko import ConnectHandler
 from datetime import datetime

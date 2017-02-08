@@ -1,3 +1,10 @@
+'''
+-------------------------------------------------------------------------------
+This function simply converts a file to UTF-8 from UTF-16. It's needed for
+Solarwinds integration
+-------------------------------------------------------------------------------
+'''
+
 def conv(filename):
     target_file = raw_input('What is the name of the customer? \n') + ".csv"
     with open(filename, 'rb') as source_file:
