@@ -1,3 +1,11 @@
+'''
+-------------------------------------------------------------------------------
+This function loads the credentials from a CSV file for connecting to your
+devices. Will hopefully become an *option* in the future instead of the only
+one supported.
+-------------------------------------------------------------------------------
+'''
+
 import csv, os.path
 
 #Read in the credentials from file
