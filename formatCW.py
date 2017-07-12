@@ -4,18 +4,18 @@ import smtplib
 upd8 = pyperclip.paste()
 
 # Optional, or just set the variable here
-servername = "accorp-exch2.accorp.local"
+servername = "emailserver.contoso.com"
 serverport = 25
 
 ticketnum = raw_input("Enter the ticket number: ")
 body = "!!AddInternal:" + upd8 + "!!"
-fromadd = "Kris@alasconnect.com"
-toadd = "helpdesk@alasconnect.com"
+fromadd = "JohnUser@contoso.com"
+toadd = "CWpilot@contoso.com"
 
 
 server = smtplib.SMTP(servername, serverport)
-msg = """From: Kris@alasconnect.com
-To: helpdesk@alasconnect.com
+msg = """From: JohnUser@contoso.com
+To: CWpilot@contoso.com
 Subject: Ticket#{0}
 
 """.format(ticketnum) + body
