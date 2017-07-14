@@ -1,5 +1,7 @@
 # NetSpark-Scripts
 
+WARNING: This repository is being slowly updated to Python 3. A Branch will hold these changes until it's completed. 
+
 ## What is the purpose?
 This repo will hold the cleaned scripts I've made for simplifying repetitive tasks. I'll be making use of Kirk Byers' Netmiko project to hopefully cut down on the work needed to mass-run commands.
 
