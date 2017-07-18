@@ -7,7 +7,7 @@ upd8 = pyperclip.paste()
 servername = "emailserver.contoso.com"
 serverport = 25
 
-ticketnum = raw_input("Enter the ticket number: ")
+ticketnum = input("Enter the ticket number: ")
 body = "!!AddInternal:" + upd8 + "!!"
 fromadd = "JohnUser@contoso.com"
 toadd = "CWpilot@contoso.com"
@@ -27,4 +27,4 @@ server = smtplib.SMTP(servername)
 server.sendmail(fromadd, toadd, msg)
 server.quit()
 
-print("\nSent the following to Ticket#{0}: \n").format(ticketnum) + msg
+print(("\nSent the following to Ticket#{0}: \n").format(ticketnum) + msg)

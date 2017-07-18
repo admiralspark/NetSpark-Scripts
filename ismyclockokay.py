@@ -33,26 +33,26 @@ def nc(username, password, secret, customer):
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
             connect_return = net_connect.send_command("show inv | in PID")
             # Now make it pretty
-            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
+            print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName']))
             #collapsedString = ' '.join(connect_return.split())
             #PID, VID = collapsedString.split(",")
             #print PID
             #print VID
-            print connect_return
+            print(connect_return)
             badlist = ['V01', 'V02', 'V03']
             if "ASA" in connect_return:
                 if any(word in connect_return for word in badlist):
-                    print "\nThis device is VULNERABLE!"
+                    print("\nThis device is VULNERABLE!")
                 else:
-                    print "\nThis device is SAFE!"
+                    print("\nThis device is SAFE!")
             else:
-                print "\nThis isn't an ASA 5506!"
-            print "\n>>>>>>>>> End <<<<<<<<<"
+                print("\nThis isn't an ASA 5506!")
+            print("\n>>>>>>>>> End <<<<<<<<<")
             # Disconnect from this session
             net_connect.disconnect()
 
 # Grab the Customer name to search
-customer = raw_input('Customer name: ') + ".csv"
+customer = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Give it a command:
@@ -64,4 +64,4 @@ nc(username, password, secret, customer)
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print "\nTotal time for script: \n" + str(total_time)
+print("\nTotal time for script: \n" + str(total_time))

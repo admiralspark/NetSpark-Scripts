@@ -18,7 +18,7 @@ start_time = datetime.now()
 filename = "exportCP.csv"
 #Use convencoding to convert the encoding
 fixfile = convencoding.conv(filename)
-print (str(fixfile) + " file has been created.")
+print(str(fixfile) + " file has been created.")
 
 # Point it at the CSV file
 with open(fixfile, mode='r') as f:
@@ -40,7 +40,7 @@ with open(fixfile, mode='r') as f:
 # Stolen off the interwebz, to fix the improper dict tag (py2 has no replace
 # for Dicts)
 with open(fixfile) as f:
-    vendfix=f.read().replace('Vendor', 'device_type')
+    vendfix = f.read().replace('Vendor', 'device_type')
     with open(fixfile, "w") as f:
         f.write(vendfix)
 
@@ -49,4 +49,4 @@ with open(fixfile) as f:
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print ("\nTotal time for script: \n" + str(total_time))
+print("\nTotal time for script: \n" + str(total_time))

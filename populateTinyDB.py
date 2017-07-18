@@ -43,10 +43,10 @@ def populate():
             dbf = Query()
             resultf = db.search(dbf.ip == row['IP_Address'])
             if str(resultf) != "[]":
-                print "Skipping " + row['IP_Address'] + " as it already exists."
+                print("Skipping " + row['IP_Address'] + " as it already exists.")
             else:
                 db.insert(switch)
-                print "Added " + row['IP_Address']
+                print("Added " + row['IP_Address'])
 
 populate()
 
@@ -54,4 +54,4 @@ populate()
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print "\nTotal time for script: \n" + str(total_time)
+print("\nTotal time for script: \n" + str(total_time))

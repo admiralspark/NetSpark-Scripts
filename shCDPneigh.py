@@ -1,9 +1,9 @@
-#Global imports
+# Global imports
 from netmiko import ConnectHandler
 from datetime import datetime
 import csv, os.path
 
-#Local imports
+# Local imports
 import credentials
 
 # Begin timing the script
@@ -39,9 +39,9 @@ def nc(username, password, secret, customer):
             connect_return = net_connect.send_command(command_string)
             
             # Now make it pretty
-            print ("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName']))
-            print (connect_return)
-            print ("\n>>>>>>>>> End <<<<<<<<<")
+            print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName']))
+            print(connect_return)
+            print("\n>>>>>>>>> End <<<<<<<<<")
             
             # Disconnect from this session
             net_connect.disconnect()
@@ -60,4 +60,4 @@ end_time = datetime.now()
 
 # How long did it run?
 total_time = end_time - start_time
-print ("\nTotal time for script: \n" + str(total_time))
+print("\nTotal time for script: \n" + str(total_time))

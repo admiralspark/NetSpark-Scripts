@@ -20,9 +20,9 @@ def nc(username, password, secret, customer):
             switch = {
                 'device_type': device_type,
                 'ip': ip,
-                'username': username,
-                'password': password,
-                'secret': secret,
+                'username': USERNAME,
+                'password': PASSWORD,
+                'secret': SECRET,
                 'verbose': False,
             }
             # This is your connection handler for commands from here on out
@@ -33,23 +33,23 @@ def nc(username, password, secret, customer):
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
             connect_return = net_connect.send_command("sh mls qos")
             # Now make it pretty
-            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
-            print connect_return
-            print "\n>>>>>>>>> End <<<<<<<<<"
+            print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(hostname))
+            print(connect_return)
+            print("\n>>>>>>>>> End <<<<<<<<<")
             # Disconnect from this session
             net_connect.disconnect()
 
 # Grab the Customer name to search
-customer = raw_input('Customer name: ') + ".csv"
+CUSTOMER = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
-username, password, secret = credentials.cred_csv()
+USERNAME, PASSWORD, SECRET = credentials.cred_csv()
 # Give it a command:
 # command_string = "write mem" # can be passed to nc...
 # Run the primary function in this program
-nc(username, password, secret, customer)
+nc(USERNAME, PASSWORD, SECRET, CUSTOMER)
 
 
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print "\nTotal time for script: \n" + str(total_time)
+print("\nTotal time for script: \n" + str(total_time))
