@@ -39,18 +39,18 @@ def nc(username, password, secret, customer, radiuskey, radiusserver, radiusgrou
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
             # Now make it pretty
-            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
-            print "\n---------- Original Configuration ----------"
-            print aaanewmodel
-            print oldradiusserver
-            print oldaaaauth
-            print oldVTYauth
+            print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName']))
+            print("\n---------- Original Configuration ----------")
+            print(aaanewmodel)
+            print(oldradiusserver)
+            print(oldaaaauth)
+            print(oldVTYauth)
             if oldgroup != "":
-                print oldgroup
-            print "---------- Modified Configuration ------------\n"
+                print(oldgroup)
+            print("---------- Modified Configuration ------------\n")
             if aaanewmodel == "" or aaanewmodel == "no aaa new-model":
                 net_connect.send_config_set('aaa new-model')
-                print "New AAA model enabled on device"
+                print("New AAA model enabled on device")
             if oldgroup == "":
                 config_radgroup = [ 'aaa group server radius ' + str(radiusgroupname),
                                     'server-private ' + str(radiusserver) + ' auth-port 1812 acct-port 1813 key ' + radiuskey,
@@ -59,24 +59,24 @@ def nc(username, password, secret, customer, radiuskey, radiusserver, radiusgrou
                                     'end' ]
                 net_connect.send_config_set(config_radgroup)
                 #print config_radgroup
-                print "AAA Group " + str(radiusgroupname) + " at IP " + str(radiusserver) + " configured on device"
+                print("AAA Group " + str(radiusgroupname) + " at IP " + str(radiusserver) + " configured on device")
             else:
-                print "AAA group already configured on device"
-            print "\n>>>>>>>>> End <<<<<<<<<"
+                print("AAA group already configured on device")
+            print("\n>>>>>>>>> End <<<<<<<<<")
             net_connect.send_command('send log "Completing change ticket {}"'.format(ticketnum))
             # Disconnect from this session
             net_connect.disconnect()
 
 # Grab the Customer name to search
-customer = raw_input('Customer name: ') + ".csv"
+customer = input('Customer name: ') + ".csv"
 # Enter ticket number for SW change logging
-ticketnum = raw_input('Ticket #: ')
+ticketnum = input('Ticket #: ')
 # Ask for the RADIUS key you want to username
-radiuskey = raw_input('Enter the RADIUS key for authentication: ')
+radiuskey = input('Enter the RADIUS key for authentication: ')
 # And the RADIUS server
-radiusserver = raw_input('Enter the RADIUS server: ')
+radiusserver = input('Enter the RADIUS server: ')
 # And your group name! (seriously just take all this from config)
-radiusgroupname = raw_input('Enter the RADIUS group-name: ')
+radiusgroupname = input('Enter the RADIUS group-name: ')
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Give it a command:
@@ -89,4 +89,4 @@ nc(username, password, secret, customer, radiuskey, radiusserver, radiusgroupnam
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print "\nTotal time for script: \n" + str(total_time)
+print("\nTotal time for script: \n" + str(total_time))

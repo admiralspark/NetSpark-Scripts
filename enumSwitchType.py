@@ -34,14 +34,14 @@ def enumSwitch(username, password, secret, customer):
             command_string = "show version | include Model number"
             connect_return = net_connect.send_command(command_string)
             # Now make it pretty
-            print "\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName'])
-            print connect_return
-            print "\n>>>>>>>>> End <<<<<<<<<"
+            print("\n\n>>>>>>>>> Device {0} <<<<<<<<<".format(row['SysName']))
+            print(connect_return)
+            print("\n>>>>>>>>> End <<<<<<<<<")
             # Disconnect from this session
             net_connect.disconnect()
 
 # Grab the Customer name to search
-customer = raw_input('Customer name: ') + ".csv"
+customer = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Give it a command:
@@ -53,4 +53,4 @@ enumSwitch(username, password, secret, customer)
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print "\nTotal time for script: \n" + str(total_time)
+print("\nTotal time for script: \n" + str(total_time))
