@@ -73,5 +73,4 @@ with open (REPORTNAME, 'r') as f:
     #BLOCKEDLIST
     print('\n--------Intrusions Blocked-------\n')
     getMatchesInfect(intblk[0], inttml[0])
-    #print(vulnerabilities)
     print('\n---------------------------------\n')
