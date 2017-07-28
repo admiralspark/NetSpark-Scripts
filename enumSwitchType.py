@@ -32,7 +32,7 @@ def enumSwitch(username, password, secret, customer):
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
             modelnum = "show version | include Model number"
-            firmware = "show version | include flash:"
+            firmware = "show running-config | include boot system"
             modelnumret = net_connect.send_command(modelnum)
             firmwareret = net_connect.send_command(firmware)
             # Now make it pretty
