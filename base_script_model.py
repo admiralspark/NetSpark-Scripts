@@ -44,7 +44,8 @@ customer = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Just for testing
-command_string = input('Command string to run: ')
+# command_string = input('Command string to run: ')
+command_string = "show run | include hostname"
 # Run the primary function in this program
 nc(username, password, secret, customer, command_string)
 
