@@ -1,3 +1,10 @@
+'''
+-------------------------------------------------------------------------------
+This script is a baseline for multithreaded conversion of all of the scripts.
+I'll look into converting the repo to use multithread, some day.
+-------------------------------------------------------------------------------
+'''
+
 from netmiko import ConnectHandler
 from datetime import datetime
 import csv, os.path
@@ -53,12 +60,12 @@ def switch_run_command(ip):
     session.enable()
     session_return = session.send_command(COMMAND)
     hostname = matchrow['SysName']
-    # Fancy formatting here for results
-    print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ip))
+    
+    print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ip)) # Fancy formatting
     print(session_return)
     print("\n>>>>>>>>> End <<<<<<<<<")
-    # Disconnect the netmiko session
-    session.disconnect()
+    
+    session.disconnect() # Disconnect the netmiko session
         
 
 CUSTDICTIONARY = generate_cust_dict(CUSTOMER)
