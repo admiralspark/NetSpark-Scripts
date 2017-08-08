@@ -1,3 +1,10 @@
+'''
+-------------------------------------------------------------------------------
+This script is a baseline for multithreaded conversion of all of the scripts.
+I'll look into converting the repo to use multithread, some day.
+-------------------------------------------------------------------------------
+'''
+
 from netmiko import ConnectHandler
 from datetime import datetime
 import csv, os.path
