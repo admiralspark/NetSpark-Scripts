@@ -10,7 +10,7 @@ start_time = datetime.now() # Begin timing the script
 
 CUSTOMER = "test.csv"
 USERNAME, PASSWORD, SECRET = credentials.cred_csv()
-COMMAND = "show run | include hostname"
+COMMAND = input("What command do you want to run? ")
 pool = ThreadPool()
 
 
@@ -54,12 +54,12 @@ def switch_run_command(ip):
     session_return = session.send_command(COMMAND)
     hostname = matchrow['SysName']
     # Fancy formatting here for results
-    print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ip))
-    print(session_return)
-    print("\n>>>>>>>>> End <<<<<<<<<")
+    print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ip)
+          + session_return
+          + "\n>>>>>>>>> End <<<<<<<<<\n")
     # Disconnect the netmiko session
     session.disconnect()
-        
+
 
 CUSTDICTIONARY = generate_cust_dict(CUSTOMER)
 IP_LIST = generate_ip_list(CUSTDICTIONARY)
