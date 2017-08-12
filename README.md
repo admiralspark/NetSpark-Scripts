@@ -1,26 +1,52 @@
-# NetSpark-Scripts
+<h1 align="center">Netspark-Scripts</h1>
 
-## What is the purpose?
-This repo will hold the cleaned scripts I've made for simplifying repetitive tasks. I'll be making use of Kirk Byers' Netmiko project to hopefully cut down on the work needed to mass-run commands.
+<p align="center">Networking scripts to assist Network Engineers around the world!</p>
 
-## What is the target audience?
-Any network administrator who's sick of manually touching things! These are certainly not meant as a replacement for configuration management, NCM, or other products of the like. This is for stuff where we'll be parsing output, making intelligent programmed changes, etc.
+## Table of Contents
 
-## What are the requirements?
-* Netmiko
-* TinyDB (For DB support)
-* pyperclip (for formatCW.py script)
-* getpass (for secure password grabbing)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Contributing](#contributing)
+    - [Acknowldegements](#acknowledgements)
 
-Everything else should be in stdlib.
+## Prerequisites
 
-## What are the scripts/what do they do?
+For everything:
 
-#### Cisco Command Scripts
-The majority of scripts use base_script_model.py as a template. They log into switches fed to them from a csv file, run the commands and sometimes perform logic on the returned information to produce what's needed. The basic script I point everyone to is findMAC.py, which lets you map a mac address to a port. VERY useful when finding which port a phone is plugged into or something along those lines.
+```pip install netmiko tinydb pyperclip getpass```
 
-#### Other Processing Scripts
-There's scripts here for adding information to a database (TinyDB), formatting email updates to a Connectwise ticket handler, and processing the relevant data out of a FortiAnalyzer report. 'fortiport.py' is one you should check out as it works with an .ini file, whcih is where I'll eventually move all of these to go (or JSON...haven't decided).
+For the network scripts:
+
+```pip install netmiko```
+
+For database support (WIP):
+
+```pip install tinydb```
+
+For the email formatter (connectwise):
+
+```pip install pyperclip```
+
+For secure credential access (req'd soon):
+
+```pip install getpass```
+
+## Installation
+
+Clone the repo, and run the scripts using Python 3. This is NOT a library or module, it is meant to be templates and examples that you can use, copy, and make better.
+
+## Usage
+
+Create your 'customer' file and 'credentials' file based on exampleCSV.md. Then, run the scripts, filling in info as you go!
+
+## Contributing
+
+All patches welcome! Please read [CONTRIBUTING.md](https://github.com/admiralspark/netspark-scripts/CONTRIBUTING.md) for furthers details.
+
+## License
+
+GNU GPL Version 3 - see the [LICENSE](https://github.com/admiralspark/netspark-scripts/LICENSE) file for details
 
 ## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
@@ -34,6 +60,3 @@ There's scripts here for adding information to a database (TinyDB), formatting e
 + Allows a user to put in two hosts and it will trace the path that the packets take and provide: VRF information, firewall information, and physical ports taken
 + Periodic change of your local passwords; have a script use the API of your enterprise password management suite to login with the current local password, request a new one, change it, and save the config (Postponed until I can dig into API's for Keypass, LastPass, and Thycotic)
 + Automatic interface descriptions. Get the MAC address from the port, query the layer 3 termination for the IP address of the endpoint, and label the interface with the hostname of the device from rDNS or from a powershell query or something.
-
-##### LONG TERM POTENTIAL:
-Switch boots, pulls a DHCP address, is told by a DHCP attribute to pull a generic config file that contains an event script that fires after a couple of minutes. That script uses LLDP to figure out what his parent switch is, and what port he's connected to. Armed with the knowledge of what kind of device you are, who you're connected to and what port you'e talking to, you can construct a unique association with a config file without any advanced knowledge about the switch you're deploying. The switch would then pull its "real" config from the TFTP server, and register itself with an inventory management system.

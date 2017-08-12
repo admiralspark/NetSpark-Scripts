@@ -6,8 +6,7 @@ customer data into a local TinyDB
 -------------------------------------------------------------------------------
 '''
 from datetime import datetime
-import csv, os.path
-import codecs
+import csv
 # Local
 import convencoding
 
