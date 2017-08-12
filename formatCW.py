@@ -1,5 +1,6 @@
-import pyperclip
+''' This formats an email and updates a ticket in ConnectWise'''
 import smtplib
+import pyperclip
 
 upd8 = pyperclip.paste()
 

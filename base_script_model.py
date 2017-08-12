@@ -1,25 +1,33 @@
+'''
+This module is a base for single-thread scripts.
+'''
+
 #Global imports
-from netmiko import ConnectHandler
 from datetime import datetime
-import csv, os.path
+import csv
+from netmiko import ConnectHandler
 #Local imports
 import credentials
 
 # Begin timing the script
-start_time = datetime.now()
+STARTTIME = datetime.now()
 
 # Define the primary function (to be moved to a separate module some day...)
-def nc(username, password, secret, customer, command_string):
-    with open(customer, mode='r') as csvfile:
+def netcon(username, password, secret, CUSTOMER, COMMANDSTRING):
+    '''
+    This is the core function. Iterates through a CSV, forms a dict, runs the command
+    and logics it.
+    '''
+    with open(CUSTOMER, mode='r') as csvfile:
         reader = csv.DictReader(csvfile)
         # Now iterate through every row in the CSVfile and make dictionaries
         for row in reader:
             hostname = row['SysName']
             device_type = row['device_type']
-            ip = row['IP_Address']
+            ipaddr = row['IP_Address']
             switch = {
                 'device_type': device_type,
-                'ip': ip,
+                'ip': ipaddr,
                 'username': username,
                 'password': password,
                 'secret': secret,
@@ -31,26 +39,26 @@ def nc(username, password, secret, customer, command_string):
             net_connect.enable()
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
-            connect_return = net_connect.send_command(command_string)
+            connect_return = net_connect.send_command(COMMANDSTRING)
             # Now make it pretty
-            print("\n\n>>>>>>>>> Device {0} {1} <<<<<<<<<".format(row['SysName'], ip))
+            print("\n\n>>>>>>>>> Device {0} {1} <<<<<<<<<".format(hostname, ipaddr))
             print(connect_return)
             print("\n>>>>>>>>> End <<<<<<<<<")
             # Disconnect from this session
             net_connect.disconnect()
 
 # Grab the Customer name to search
-customer = input('Customer name: ') + ".csv"
+CUSTOMER = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Just for testing
-# command_string = input('Command string to run: ')
-command_string = "show run | include hostname"
+# COMMANDSTRING = input('Command string to run: ')
+COMMANDSTRING = "show run | include hostname"
 # Run the primary function in this program
-nc(username, password, secret, customer, command_string)
+netcon(username, password, secret, CUSTOMER, COMMANDSTRING)
 
 
-end_time = datetime.now()
+ENDTIME = datetime.now()
 # How long did it run?
-total_time = end_time - start_time
-print("\nTotal time for script: \n" + str(total_time))
+TOTALTIME = ENDTIME - STARTTIME
+print("\nTotal time for script: \n" + str(TOTALTIME))
