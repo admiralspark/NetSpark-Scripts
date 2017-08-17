@@ -14,7 +14,7 @@ import credentials # Local import of credentials.py
 
 STARTTIME = datetime.now() # Begin timing the script
 
-CUSTOMER = "test.csv"
+CUSTOMER = input("Which file? ") + ".csv"
 USERNAME, PASSWORD, SECRET = credentials.cred_csv()
 COMMAND = input("What command do you want to run? ")
 POOL = ThreadPool()
