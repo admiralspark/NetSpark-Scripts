@@ -45,7 +45,7 @@ All patches welcome! Please read [CONTRIBUTING.md](https://github.com/admiralspa
 
 ## License
 
-GNU GPL Version 3 - see the [LICENSE](https://github.com/admiralspark/netspark-scripts/LICENSE) file for details
+GNU GPL Version 3 - see the [LICENSE](https://github.com/admiralspark/NetSpark-Scripts/blob/master/LICENSE) file for details
 
 ## Future Automation Projects
 + A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
