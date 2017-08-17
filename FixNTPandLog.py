@@ -71,18 +71,18 @@ def switch_run_command(ipaddr):
     session.enable()
     hostname = matchrow['SysName']
     # ----------NTP-------------
-    ntp_settings = [ OLDNTPSERVER,
-                     NTPSERVER,
-                     'no clock summer-time',
-                     TIMEZONE,
-                     'service timestamps log datetime localtime show-timezone',
-                     'service timestamps debug datetime localtime show-timezone' ]
+    ntp_settings = [OLDNTPSERVER,
+                    NTPSERVER,
+                    'no clock summer-time',
+                    TIMEZONE,
+                    'service timestamps log datetime localtime show-timezone',
+                    'service timestamps debug datetime localtime show-timezone']
 
     session.send_config_set(ntp_settings)
     #----------logging-----------
-    log_settings = [ 'logging trap notifications',
-                     'logging facility syslog',
-                     LOGSERVER ]
+    log_settings = ['logging trap notifications',
+                    'logging facility syslog',
+                    LOGSERVER]
     session.send_config_set(log_settings)
     #-----------------------------
     resultsntp = session.send_command("sh run | in ntp|timezone|clock")
