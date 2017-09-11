@@ -97,6 +97,5 @@ def get_records(domain):
             print(e)  # or pass
 
 if __name__ == '__main__':
-    #DOMAIN = input("Url: ")
-    DOMAIN = "homerelectric.com"
+    DOMAIN = input("Url: ")
     get_records(DOMAIN)
