@@ -52,8 +52,8 @@ CUSTOMER = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Just for testing
-# COMMANDSTRING = input('Command string to run: ')
-COMMANDSTRING = "show run | include hostname"
+COMMANDSTRING = input('Command string to run: ')
+#COMMANDSTRING = "show run | include hostname"
 # Run the primary function in this program
 netcon(username, password, secret, CUSTOMER, COMMANDSTRING)
 
