@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/badge/Python-3.4%2C%203.5%2C%203.6-green.svg)
+
 <h1 align="center">Netspark-Scripts</h1>
 
 <p align="center">Networking scripts to assist Network Engineers around the world!</p>
