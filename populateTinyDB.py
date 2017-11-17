@@ -21,10 +21,11 @@ start_time = datetime.now()
 db = TinyDB('netspark.json')
 
 # Point it at the CSV file
-#filename = raw_input("Name of the CSV file to import: ")
-filename = "ASA.csv"
+filename = input("Name of the CSV file to import: ")
+# filename = "ASA.csv"
 # Function populate() will parse the SW config file and add it to our TinyDB
 def populate():
+    ''' Populates the DB with data. This is old code, needs cleanup '''
     with open(filename, mode='r') as f:
         reader = csv.DictReader(f)
     # Now iterate through every row in the CSVfile and set variables
@@ -46,7 +47,7 @@ def populate():
                 print("Skipping " + row['IP_Address'] + " as it already exists.")
             else:
                 db.insert(switch)
-                print("Added " + row['IP_Address'])
+                print ("Added " + row['IP_Address'])
 
 populate()
 
@@ -54,4 +55,4 @@ populate()
 end_time = datetime.now()
 # How long did it run?
 total_time = end_time - start_time
-print("\nTotal time for script: \n" + str(total_time))
+print ("\nTotal time for script: \n" + str(total_time))

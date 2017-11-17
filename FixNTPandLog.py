@@ -1,7 +1,7 @@
 '''
 -------------------------------------------------------------------------------
-This script is a baseline for multithreaded conversion of all of the scripts.
-I'll look into converting the repo to use multithread, some day.
+This script will modify te NTP and logging sections. Needs improvement (like
+checks and such...)
 -------------------------------------------------------------------------------
 '''
 
