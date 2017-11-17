@@ -13,7 +13,7 @@ import credentials
 STARTTIME = datetime.now()
 
 # Define the primary function (to be moved to a separate module some day...)
-def netcon(username, password, secret, CUSTOMER, COMMANDSTRING):
+def netcon(username, password, secret, CUSTOMER, COMMANDLIST):
     '''
     This is the core function. Iterates through a CSV, forms a dict, runs the command
     and logics it.
@@ -39,7 +39,7 @@ def netcon(username, password, secret, CUSTOMER, COMMANDSTRING):
             net_connect.enable()
             # or maybe send configuration stuff with
             # net_connect.send_config_set(username cisco priv 15 pass cisco)
-            connect_return = net_connect.send_command(COMMANDSTRING)
+            connect_return = net_connect.send_config_set(COMMANDLIST)
             # Now make it pretty
             print("\n\n>>>>>>>>> Device {0} {1} <<<<<<<<<".format(hostname, ipaddr))
             print(connect_return)
@@ -52,10 +52,15 @@ CUSTOMER = input('Customer name: ') + ".csv"
 # Flesh out these variables using the credentials.cred_csv module
 username, password, secret = credentials.cred_csv()
 # Just for testing
-COMMANDSTRING = input('Command string to run: ')
-#COMMANDSTRING = "show run | include hostname"
+#COMMANDSTRING = input('Command string to run: ')
+COMMANDLIST = []
+command = input("Input one command per line, end with an extra newline: ")
+while command is not "":
+    COMMANDLIST.append(command)
+    command = input("Input one command per line, end with an extra newline: ")
+
 # Run the primary function in this program
-netcon(username, password, secret, CUSTOMER, COMMANDSTRING)
+netcon(username, password, secret, CUSTOMER, COMMANDLIST)
 
 
 ENDTIME = datetime.now()

@@ -16,7 +16,11 @@ STARTTIME = datetime.now() # Begin timing the script
 
 CUSTOMER = input("Which file? ") + ".csv"
 USERNAME, PASSWORD, SECRET = credentials.cred_csv()
-COMMAND = input("What command do you want to run? ")
+COMMANDLIST = []
+command = input("Input one command per line, end with an extra newline: ")
+while command is not "":
+    COMMANDLIST.append(command)
+    command = input("Input one command per line, end with an extra newline: ")
 POOL = ThreadPool()
 
 
@@ -62,7 +66,7 @@ def switch_run_command(ipaddr):
     sessiondict = generate_switch_dict(USERNAME, PASSWORD, SECRET, matchrow)
     session = ConnectHandler(**sessiondict)
     session.enable()
-    session_return = session.send_command(COMMAND)
+    session_return = session.send_config_set(COMMANDLIST)
     hostname = matchrow['SysName']
     # Fancy formatting here for results
     print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ipaddr)
