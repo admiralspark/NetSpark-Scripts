@@ -3,8 +3,8 @@ This script is the master controller script. It will make the necessary
 commands to run whatever is needed against whatever is needed. 
 
     Usage:
-        sparkrun.py -h | --help
-        sparkrun.py (--info COMMAND | --config CONFIGFILE) (--csv FILENAME | --db QUERYNAME | --ip IPADDR) [-c CREDFILE] [--debug]
+        netspark.py -h | --help
+        netspark.py (--info COMMAND | --config CONFIGFILE) (--csv FILENAME | --db QUERYNAME | --ip IPADDR) [-c CREDFILE] [--debug]
     
     Options:
         -h, --help          Shows this menu.
@@ -31,7 +31,7 @@ if arguments['--debug'] == True:
     logging.basicConfig(level=logging.DEBUG)
     print("Arguments: \n" + str(arguments))
 else:
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARNING)
 
 # Global variable MODE stores whether we're running config or not. This is here instead of defined
 # in the functions below because I'm going to use it for testing. 
