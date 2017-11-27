@@ -11,10 +11,10 @@ import os.path
 import getpass
 
 #Read in the credentials from file
-def cred_csv():
+def cred_csv(filename="credentials.csv"):
     """Check for existence of credentials file, read data if True, else ask for it manually"""
-    if os.path.isfile('credentials.csv') is True:
-        with open('credentials.csv', mode='r') as credfile:
+    if os.path.isfile(filename) is True:
+        with open(filename, mode='r') as credfile:
             reader = csv.DictReader(credfile)
             for row in reader:
                 username = row['username']

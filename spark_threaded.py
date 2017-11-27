@@ -57,10 +57,13 @@ def generate_switch_dict(username, password, secret, matchrow, command):
     return swlist
 
 
-def generate_listof_lists(custdictionary, command):
+def generate_listof_lists(custdictionary, command, creds):
     '''Returns a list of lists from the input dictionary'''
     swlist = []
-    username, password, secret = credentials.cred_csv()
+    if creds is not None:
+        username, password, secret = credentials.cred_csv(creds)
+    else:
+        username, password, secret = credentials.cred_csv()
     for row in custdictionary:
         swlist.append(generate_switch_dict(username, password, secret, row, command))
     return swlist
@@ -91,15 +94,14 @@ def info_command(command, csv, db, ip, creds):
     '''This runs a single command against all devices'''
     if csv is not None:
         switchdata = generate_cust_dict(csv) #dictionary of all switch data
-        switchlists = generate_listof_lists(switchdata, command)
+        switchlists = generate_listof_lists(switchdata, command, creds)
         results = POOL.starmap(switch_run_command, switchlists)
         POOL.close()
         POOL.join()
     elif db is not None:
         print("SQL functionality is not supported at this time.")
-        pass
     elif ip is not None:
-        pass
+        print("IP-specific functionality is not supported at this time")
     
 
 def config_command(config, csv, db, ip, creds):
