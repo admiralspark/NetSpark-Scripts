@@ -14,15 +14,18 @@ import credentials # Local import of credentials.py
 
 STARTTIME = datetime.now() # Begin timing the script
 
-CUSTOMER = input("Which file? ") + ".csv"
+CUSTOMER = "test.csv"
 USERNAME, PASSWORD, SECRET = credentials.cred_csv()
 COMMANDLIST = []
-command = input("Input one command per line, end with an extra newline: ")
-while command is not "":
-    COMMANDLIST.append(command)
-    command = input("Input one command per line, end with an extra newline: ")
+command = "sh run"
 POOL = ThreadPool()
 
+def check_config_mode(config):
+    '''Verifies if script is running config changes or not'''
+    if config is not None:
+        return True
+    else:
+        return False
 
 def generate_ip_list(custdictionary):
     '''Return a list of IP's from the dictionary'''
@@ -75,15 +78,27 @@ def switch_run_command(ipaddr):
     # Disconnect the netmiko session
     session.disconnect()
 
+def info_command(command, csv, db, ip, creds):
+    '''This runs a single command against all devices'''
+    if csv is not None:
+        switchdata = generate_cust_dict(csv) #dictionary of all switch data
+        iplist = generate_ip_list(switchdata) #iplist for pool
+        results = POOL.map(switch_run_command, IP_LIST) #old pool function, broken...
+    if db is not None:
+        print("SQL functionality is not supported at this time.")
+        pass
+    if ip is not None:
 
-CUSTDICTIONARY = generate_cust_dict(CUSTOMER)
-IP_LIST = generate_ip_list(CUSTDICTIONARY)
+    
 
-RESULTS = POOL.map(switch_run_command, IP_LIST)
+def config_command(config, csv, db, ip, creds):
+    pass
 
-POOL.close()
-POOL.join()
+
+#RESULTS = POOL.map(switch_run_command, IP_LIST)
+
+#POOL.close()
+#POOL.join()
 
 ENDTIME = datetime.now()
 TOTALTIME = ENDTIME - STARTTIME
-print("\nTotal time for script: \n" + str(TOTALTIME))
