@@ -18,6 +18,7 @@ commands to run whatever is needed against whatever is needed.
         -c CREDFILE         Crednetials file [default: credentials.csv]
 '''
 
+import os.path
 import logging
 from docopt import docopt
 import spark_threaded as st
@@ -42,6 +43,12 @@ if MODE is False:
     st.info_command(arguments['--info'], arguments['--csv'], arguments['--db'], arguments['--ip'], arguments['-c'])
 
 elif MODE is True:
+    COMMANDLIST = []
+    if os.path.exists(arguments['--config']):
+        with open(arguments['--config']) as conffile:
+            for row in conffile:
+                COMMANDLIST.append(row)
+    st.COMMANDLIST = COMMANDLIST
     st.config_command(arguments['--config'], arguments['--csv'], arguments['--db'], arguments['--ip'], arguments['-c'])
 
 else:
