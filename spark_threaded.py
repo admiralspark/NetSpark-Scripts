@@ -16,14 +16,13 @@ import credentials # Local import of credentials.py
 
 STARTTIME = datetime.now() # Begin timing the script
 
-#CUSTOMER = "test.csv"
 COMMANDLIST = []
-command = "sh run | in hostname"
+command = ""
 #POOL = ThreadPool(cpu_count() - 1) # Missing from lib as of 03/2017
 POOL = ThreadPool()
 
 def check_config_mode(config):
-    '''Verifies if script is running config changes or not'''
+    '''Verifies if script is running config changes or not. Redundant.'''
     if config is not None:
         logging.debug("Config Mode Enabled")
         return True
@@ -52,7 +51,7 @@ def generate_cust_dict(customer):
 
 
 def find_by_ip(lst, value):
-    '''Returns the row that a specific IP is in (search for row by IP'''
+    '''Returns the row that a specific IP is in (search for row by IP)'''
     for row in lst:
         if str(row['IP_Address']) == str(value):
             return row
