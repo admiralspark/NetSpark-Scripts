@@ -145,7 +145,6 @@ def config_command(config, csv, db, ip, creds):
         print("SQL functionality is not supported at this time.")
     elif ip is not None:
         print("IP-specific functionality is not supported at this time")
-    pass
 
 
 #RESULTS = POOL.map(switch_run_command, IP_LIST)
