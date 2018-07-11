@@ -25,7 +25,7 @@ Clone the repo, and run the scripts using Python 3. This is NOT a library or mod
 
 Create your 'customer' file and 'credentials' file based on exampleCSV.md.
 
-### python netspark.py -h
+#### python netspark.py -h
 This script is the master controller script. It will make the necessary
 commands to run whatever is needed against whatever is needed.
 
@@ -56,6 +56,8 @@ exit
 conf t revert time 5
 username secretbackdoor privilege 15 password Thiscantbereal!
 ```
+
+--config runs in the context of config mode, which is why I use an exit above.
 
 Then you'd run it like so: `python netspark.py --config changeuser.txt --csv switches.csv`
 
