@@ -1,6 +1,6 @@
 <h1 align="center">Netspark-Scripts</h1>
 
-<p align="center">Networking scripts to assist Network Engineers around the world!</p>
+<p align="center">Multithreaded parallel network command execution, simplified, for network engineers of the world!</p>
 
 ![Python](https://img.shields.io/badge/Python-3.4%2C%203.5%2C%203.6-green.svg)
 
@@ -15,23 +15,7 @@
 
 For everything:
 
-```pip install netmiko tinydb pyperclip getpass```
-
-For the network scripts:
-
-```pip install netmiko```
-
-For database support (WIP):
-
-```pip install tinydb```
-
-For the email formatter (connectwise):
-
-```pip install pyperclip```
-
-For secure credential access (req'd soon):
-
-```pip install getpass```
+```pip install netmiko docopt getpass```
 
 ## Installation
 
@@ -39,25 +23,67 @@ Clone the repo, and run the scripts using Python 3. This is NOT a library or mod
 
 ## Usage
 
-Create your 'customer' file and 'credentials' file based on exampleCSV.md. Then, run the scripts, filling in info as you go!
+Create your 'customer' file and 'credentials' file based on exampleCSV.md.
+
+#### python netspark.py -h
+This script is the master controller script. It will make the necessary
+commands to run whatever is needed against whatever is needed.
+
+    Usage:
+        netspark.py -h | --help
+        netspark.py (--info COMMAND | --config CONFIGFILE) (--csv FILENAME | --db QUERYNAME | --ip IPADDR) [-c CREDFILE] [--debug]
+
+    Options:
+        -h, --help          Shows this menu.
+        -d, --debug         Print debug information. This is the most verbose
+                            option.
+        --info COMMAND   This will run regular show commands
+        --config CONFIGFILE This will run configuration commands
+        --csv FILENAME      Input file if using CSV [default: test.csv]
+        --db QUERYNAME      SQL field: 'groupname' [default: test]
+        --ip IPADDR         Single IP address of test switch
+        -c CREDFILE         Crednetials file [default: credentials.csv]
+
+### Examples:
+To run write mem on every host in your csv file switches.csv (assuming you only have one credentials.csv):
+
+`python netspark.py --info "wr mem" --csv switches.csv`
+
+To make a config change with many lines, such as changing a local account, you'd make a text file with the lines to change it which will then be run against the hosts. For example, lets make a changeuser.txt:
+
+```
+exit
+conf t revert time 5
+username secretbackdoor privilege 15 password Thiscantbereal!
+```
+
+--config runs in the context of config mode, which is why I use an exit above.
+
+Then you'd run it like so: `python netspark.py --config changeuser.txt --csv switches.csv`
+
+This command supports all of the netmiko classes of devices, but I designed it to be used with Cisco gear since that's what most of us run. You just need to specify a different device object in your switches.csv file to work with new stuff.
+
+Final example, lets say you have a rogue sysadmin at one branch who refuses to use newer credentials/radius/whatever. So you have a different nonstandard set of creds and routers.
+
+`python netspark.py --info "configure confirm" --csv crappyrouters.csv -c crappycreds.csv`
+
+### Caveats
+
+This is multithreaded and I haven't added error handling. I force all of my changes to use config revision (the 'conf t revert time 5' above) as a workaround until I have good error handling in place. It's laziness and a lack of time, it would be decently easy to implement.
+
+The multiprocess code I wrote is messy because of context issues. I plan on making that part into a library later on, but something something time and laziness.
+
+The default number of simultaneous executions is 8, I have run this successfully at 50x simultaneous on a network of 400+ devices but keep in mind that they will return output at a rate of 50x, and it spits it out to STDOUT, so you might want to just leave it.
+
+I will add support for --db and --ip later on, probably --db first because I want this to dive into the rest of my open-source stack I'm slowly writing about on https://teamignition.us so that this all ties in beautifully.
+
+## The Example_Scripts folder
+This is old code and alternative projects. It is useful reference material so I'm leaving it up, but it will not be updated.
 
 ## Contributing
 
-All patches welcome! Please read [CONTRIBUTING.md](https://github.com/admiralspark/netspark-scripts/CONTRIBUTING.md) for furthers details.
+All patches welcome! Please read [CONTRIBUTING.md](https://github.com/admiralspark/netspark-scripts/CONTRIBUTING.md) for furthers details...whenever I make it. For now, submit PR's and we'll chat about them.
 
 ## License
 
 GNU GPL Version 3 - see the [LICENSE](https://github.com/admiralspark/NetSpark-Scripts/blob/master/LICENSE) file for details
-
-## Future Automation Projects
-+ A script that takes a MAC address, finds its port/VLAN amongst a number of switches, and sets up an ERSPAN to a Wireshark VM.
-+ Push out config changes to all or select devices as a one time change (using Ansible)
-+ Create config templates that compare device configs to the standard and automate the updates of those devices (automated remediation, the fifth level of Stretch's Hierarchy of Network Needs: http://packetlife.net/blog/2015/dec/14/stretchs-hierarchy-network-needs/)
-+ One click provisioning of new devices into all of our various other tools. No more forgetting to update the device in the monitoring server (Nagios plugins for this to come)
-+ Updates device information in other monitoring tools if the device changes (IPAM tools)
-+ ~~Collects backups of all network devices~~ Completed with automated backup scheduling tool tftpBackups.py 12/8/16
-+ Map vlans -> subnets, subnets -> vrfs, MAC addresses -> switchports, IP addresses, VLANs
-+ Gather historical CDP info (requires TinyDB)
-+ Allows a user to put in two hosts and it will trace the path that the packets take and provide: VRF information, firewall information, and physical ports taken
-+ Periodic change of your local passwords; have a script use the API of your enterprise password management suite to login with the current local password, request a new one, change it, and save the config (Postponed until I can dig into API's for Keypass, LastPass, and Thycotic)
-+ Automatic interface descriptions. Get the MAC address from the port, query the layer 3 termination for the IP address of the endpoint, and label the interface with the hostname of the device from rDNS or from a powershell query or something.
