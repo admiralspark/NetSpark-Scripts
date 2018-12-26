@@ -10,7 +10,8 @@ import csv
 import logging
 from multiprocessing.dummy import Pool as ThreadPool
 #from multiprocessing.dummy import cpu_count # Broken as of March 2017 in 3.x
-from netmiko import ConnectHandler
+#from netmiko import ConnectHandler
+import netmiko
 import credentials # Local import of credentials.py
 
 
@@ -89,15 +90,19 @@ def switch_run_command(username, password, secret, devicetype, ipaddr, hostname,
         'secret': secret,
         'verbose': False
         }
-    session = ConnectHandler(**sessiondict)
-    session.enable()
-    session_return = session.send_command(clicomm)
+    try:
+        # Start the session, enable, send the commands, capture terminal output and remove the connections
+        session = netmiko.ConnectHandler(**sessiondict)
+        session.enable()
+        session_return = session.send_command(clicomm)
+        session.disconnect()
+    except (netmiko.ssh_exception.NetMikoTimeoutException):
+        session_return = "----------DEVICE CONNECTION FAILED----------"
     # Fancy formatting here for results
     print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ipaddr)
           + session_return
           + "\n>>>>>>>>> End <<<<<<<<<\n")
-    # Disconnect the netmiko session
-    session.disconnect()
+    
 
 def switch_run_config(username, password, secret, devicetype, ipaddr, hostname, clicomm):
     '''All the logic happens here. Take the data, process it, print results'''
@@ -109,15 +114,18 @@ def switch_run_config(username, password, secret, devicetype, ipaddr, hostname, 
         'secret': secret,
         'verbose': False
         }
-    session = ConnectHandler(**sessiondict)
-    session.enable()
-    session_return = session.send_config_set(COMMANDLIST)
+    try:
+        # Start the session, enable, send the commands, capture terminal output and remove the connections
+        session = netmiko.ConnectHandler(**sessiondict)
+        session.enable()
+        session_return = session.send_config_set(COMMANDLIST)
+        session.disconnect()
+    except (netmiko.ssh_exception.NetMikoTimeoutException):
+        session_return = "----------DEVICE CONNECTION FAILED----------"
     # Fancy formatting here for results
     print("\n\n>>>>>>>>> {0} {1} <<<<<<<<<\n".format(hostname, ipaddr)
           + session_return
           + "\n>>>>>>>>> End <<<<<<<<<\n")
-    # Disconnect the netmiko session
-    session.disconnect()
 
 def info_command(command, csv, db, ip, creds):
     '''This runs a single command against all devices'''
@@ -128,8 +136,10 @@ def info_command(command, csv, db, ip, creds):
         POOL.close()
         POOL.join()
     elif db is not None:
+        # TODO
         print("SQL functionality is not supported at this time.")
     elif ip is not None:
+        # TODO
         print("IP-specific functionality is not supported at this time")
     
 
